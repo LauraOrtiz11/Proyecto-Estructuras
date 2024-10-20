@@ -1,63 +1,104 @@
 class Vuelo {
-    constructor(VueloNumber, airline, destination, departureTime) {
-        this.VueloNumber = VueloNumber;
-        this.airline = airline;
-        this.destination = destination;
-        this.departureTime = departureTime;
-        this.left = null;
-        this.right = null;
+    constructor(id, tipo, nacionalidad, hora, capacidadMaxima) {
+        this.id = id; // Identificador único del vuelo
+        this.tipo = tipo; // 'salida' o 'llegada'
+        this.nacionalidad = nacionalidad; // 'nacional' o 'internacional'
+        this.hora = hora; // Hora de despegue o aterrizaje
+        this.capacidadMaxima = capacidadMaxima; // Capacidad máxima de pasajeros
     }
 }
 
-class VueloArbol {
+class NodoVuelo {
+    constructor(vuelo) {
+        this.vuelo = vuelo;
+        this.izquierda = null;
+        this.derecha = null;
+    }
+}
+
+class ArbolVuelos {
     constructor() {
-        this.root = null;
+        this.raiz = null;
     }
 
-    // Insertar vuelo en el árbol
-    insert(Vuelo) {
-        const newVuelo = new Vuelo(Vuelo.VueloNumber, Vuelo.airline, Vuelo.destination, Vuelo.departureTime);
-        if (this.root === null) {
-            this.root = newVuelo;
+    agregar(vuelo) {
+        if (this.raiz === null) {
+            this.raiz = new NodoVuelo(vuelo);
         } else {
-            this._insertNode(this.root, newVuelo);
+            this._agregarRecursivo(this.raiz, vuelo);
         }
     }
 
-    _insertNode(node, newVuelo) {
-        if (newVuelo.destination < node.destination) {
-            if (node.left === null) {
-                node.left = newVuelo;
+    _agregarRecursivo(nodo, vuelo) {
+        if (vuelo.id < nodo.vuelo.id) {
+            if (nodo.izquierda === null) {
+                nodo.izquierda = new NodoVuelo(vuelo);
             } else {
-                this._insertNode(node.left, newVuelo);
+                this._agregarRecursivo(nodo.izquierda, vuelo);
             }
         } else {
-            if (node.right === null) {
-                node.right = newVuelo;
+            if (nodo.derecha === null) {
+                nodo.derecha = new NodoVuelo(vuelo);
             } else {
-                this._insertNode(node.right, newVuelo);
+                this._agregarRecursivo(nodo.derecha, vuelo);
             }
         }
     }
 
-    // Buscar vuelo por destino
-    search(destination) {
-        return this._searchNode(this.root, destination);
+    mostrarTodos() {
+        const vuelos = [];
+        this._inorden(this.raiz, vuelos);
+        return vuelos;
     }
 
-    _searchNode(node, destination) {
-        if (node === null) return null;
-        if (destination < node.destination) return this._searchNode(node.left, destination);
-        if (destination > node.destination) return this._searchNode(node.right, destination);
-        return node;
-    }
-
-    // Mostrar vuelos (in-order traversal)
-    displayVuelos(node = this.root) {
-        if (node !== null) {
-            this.displayVuelos(node.left);
-            console.log(`Vuelo: ${node.VueloNumber}, Airline: ${node.airline}, Destination: ${node.destination}, Time: ${node.departureTime}`);
-            this.displayVuelos(node.right);
+    _inorden(nodo, vuelos) {
+        if (nodo) {
+            this._inorden(nodo.izquierda, vuelos);
+            vuelos.push(nodo.vuelo);
+            this._inorden(nodo.derecha, vuelos);
         }
+    }
+
+    buscar(id) {
+        return this._buscarRecursivo(this.raiz, id);
+    }
+
+    _buscarRecursivo(nodo, id) {
+        if (nodo === null || nodo.vuelo.id === id) {
+            return nodo ? nodo.vuelo : null;
+        }
+        return id < nodo.vuelo.id ? 
+            this._buscarRecursivo(nodo.izquierda, id) : 
+            this._buscarRecursivo(nodo.derecha, id);
+    }
+
+    eliminar(id) {
+        this.raiz = this._eliminarRecursivo(this.raiz, id);
+    }
+
+    _eliminarRecursivo(nodo, id) {
+        if (nodo === null) return nodo;
+
+        if (id < nodo.vuelo.id) {
+            nodo.izquierda = this._eliminarRecursivo(nodo.izquierda, id);
+        } else if (id > nodo.vuelo.id) {
+            nodo.derecha = this._eliminarRecursivo(nodo.derecha, id);
+        } else { // Nodo encontrado
+            if (nodo.izquierda === null) return nodo.derecha;
+            else if (nodo.derecha === null) return nodo.izquierda;
+
+            // Nodo con dos hijos: obtener el sucesor inorden
+            let sucesor = this._minimo(nodo.derecha);
+            nodo.vuelo = sucesor.vuelo;
+            nodo.derecha = this._eliminarRecursivo(nodo.derecha, sucesor.vuelo.id);
+        }
+        return nodo;
+    }
+
+    _minimo(nodo) {
+        while (nodo.izquierda !== null) {
+            nodo = nodo.izquierda;
+        }
+        return nodo;
     }
 }
