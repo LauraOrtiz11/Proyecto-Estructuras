@@ -1,11 +1,13 @@
-const ReservacionList = new ReservacionList();
+import { listaReservas, Reserva } from '../models/reservas.js';
 
-const ReservacionController = {
-    addReservacion: (flightNumber, passengerName) => {
-        ReservacionList.addReservacion(flightNumber, passengerName);
-    },
+export function agregarReserva(vueloId, pasajero) {
+    const id = listaReservas.obtenerReservas().length + 1; 
+    const reserva = new Reserva(id, vueloId, pasajero);
+    listaReservas.agregarReserva(reserva);
+}
 
-    displayReservacions: () => {
-        ReservacionList.displayReservacions();
-    }
-};
+export function mostrarReservas() {
+    return listaReservas.obtenerReservas();
+}
+
+
