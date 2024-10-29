@@ -3,48 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <script src="../public/app.js" defer></script>
     <title>Gestión de Vuelos</title>
 </head>
 <body>
-   <h1>Gestión de Vuelos</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="reservas.html">Gestionar Reservas</a></li>
+            <li><a href="checkin.html">Check-in</a></li>
+        </ul>
+    </nav>
+    <h1>Gestión de Vuelos</h1>
 
-   <h2>Agregar Vuelo</h2>
-   <form id="form-vuelo">
-       <label for="id">ID del vuelo:</label>
-       <input type="text" id="id" required>
+    <h2>Agregar Vuelo</h2>
+    <form id="add-vuelo-form">
+        <label for="origen">Origen:</label>
+        <input type="text" id="origen" required>
 
-       <label for="tipo">Tipo:</label>
-       <select id="tipo">
-           <option value="salida">Salida</option>
-           <option value="llegada">Llegada</option>
-       </select>
+        <label for="destino">Destino:</label>
+        <input type="text" id="destino" required>
 
-       <label for="nacionalidad">Nacionalidad:</label>
-       <select id="nacionalidad">
-           <option value="nacional">Nacional</option>
-           <option value="internacional">Internacional</option>
-       </select>
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" required>
 
-       <label for="hora">Hora:</label>
-       <input type="datetime-local" id="hora" required>
+        <label for="hora">Hora:</label>
+        <input type="time" id="hora" required>
 
-       <label for="capacidadMaxima">Capacidad máxima:</label>
-       <input type="number" id="capacidadMaxima" required>
+        <label for="disponibilidad">Disponibilidad:</label>
+        <input type="number" id="disponibilidad" required>
 
-       <button type="submit">Agregar Vuelo</button>
-   </form>
+        <button type="submit">Agregar Vuelo</button>
+    </form>
 
-   <h2>Buscar Vuelo</h2>
-   <input type="text" id="buscar-id" placeholder="ID del vuelo a buscar">
-   <button id="buscar-btn">Buscar Vuelo</button>
-
-   <h2>Eliminar Vuelo</h2>
-   <input type="text" id="eliminar-id" placeholder="ID del vuelo a eliminar">
-   <button id="eliminar-btn">Eliminar Vuelo</button>
-
-   <h2>Lista de Vuelos</h2>
-   <ul id="lista-vuelos"></ul>
-
-<script src="app.js"></script> <!-- Aquí incluirías tu archivo JavaScript -->
+    <h2>Lista de Vuelos</h2>
+    <div id="vuelos-container"></div>
 </body>
 </html>
