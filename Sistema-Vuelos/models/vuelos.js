@@ -48,6 +48,18 @@ class ArbolVuelos {
         }
         return vuelos;
     }
+
+    buscarVueloPorId(id) {
+        return this._buscarRecursivo(this.raiz, id);
+    }
+
+    _buscarRecursivo(nodo, id) {
+        if (!nodo) return null;
+        if (nodo.vuelo.id === id) return nodo.vuelo;
+        return id < nodo.vuelo.id
+            ? this._buscarRecursivo(nodo.izquierda, id)
+            : this._buscarRecursivo(nodo.derecha, id);
+    }
 }
 
 export const arbolVuelos = new ArbolVuelos();

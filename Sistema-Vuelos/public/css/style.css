@@ -100,3 +100,46 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+/* Nuevos estilos */
+
+.login {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+.container {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 300px;
+  }
+  
+  /* Estilos del título */
+.container h1 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Estilos de los botones */
+.container button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+.container button:hover {
+    background-color: #0056b3;
+  }

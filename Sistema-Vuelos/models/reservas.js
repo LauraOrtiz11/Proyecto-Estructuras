@@ -1,3 +1,5 @@
+import { arbolVuelos } from './vuelos';
+
 export class Reserva {
     constructor(id, vueloId, pasajero) {
         this.id = id;
@@ -6,12 +8,19 @@ export class Reserva {
         this.siguiente = null; 
     }
 }
+
 export class ListaReservas {
     constructor() {
         this.cabeza = null;
     }
 
     agregarReserva(reserva) {
+        const vuelo = arbolVuelos.buscarVueloPorId(reserva.vueloId);
+        if (!vuelo) {
+            console.log(`Vuelo con ID ${reserva.vueloId} no encontrado.`);
+            return;
+        }
+
         if (!this.cabeza) {
             this.cabeza = reserva;
         } else {
