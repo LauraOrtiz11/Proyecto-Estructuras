@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css/style.css">
-    <script type="module" src="../controllers/reservas.js"></script>
-    <title>Gestionar Reservas</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../public/css/style.css" />
+  <script type="module" src="../controllers/reservas.js"></script>
+  <script type="module" src="../controllers/vuelos.js"></script>
+  <title>Gestionar Reservas</title>
 </head>
 <body>
     <nav>
         <ul>
             <li><a href="index.html">Inicio</a></li>
+            <li><a href="vuelos.html">Gestionar Vuelos</a></li>
+            <li><a href="reservas.html">Gestionar Reservas</a></li>
             <li><a href="checkin.html">Check-in</a></li>
         </ul>
     </nav>
     
     <h1>Gestionar Reservas</h1>
-
-    <!-- Sección para mostrar vuelos disponibles -->
-    <h2>Vuelos Disponibles</h2>
-    <div id="vuelosDisponibles"></div>
-
+    
     <form id="formReserva">
         <label for="vueloId">ID de Vuelo:</label>
         <input type="text" id="vueloId" required>
@@ -29,73 +28,47 @@
         <button type="submit">Agregar Reserva</button>
     </form>
 
-    <button id="mostrarReservas">Mostrar Reservas</button>
-    
-    <div id="resultado"></div>
+  <button id="mostrarReservas">Mostrar Reservas</button>
+  <button id="verVuelosDisponibles" onclick="mostrarVuelos()">Ver Vuelos Disponibles</button>
+  <div id="vuelosDisponibles" class="oculto">
+    <!-- Aquí se mostrará la tabla de vuelos -->
+  </div>
+
+  <div id="resultado"></div>
 
     <script type="module">
-        import { agregarReserva, mostrarReservas } from '../controllers/reservas.js';
-        import { mostrarVuelos } from '../controllers/vuelos.js';
+        import { agregarReserva, mostrarReservas} from '../controllers/reservas.js';
 
-        // Función para cargar y mostrar los vuelos disponibles
-        function cargarVuelosDisponibles() {
-            const vuelos = mostrarVuelos();
-            const vuelosDisponiblesDiv = document.getElementById('vuelosDisponibles');
-
-            if (vuelos.length === 0) {
-                vuelosDisponiblesDiv.innerText = "No hay vuelos disponibles.";
-            } else {
-                vuelosDisponiblesDiv.innerHTML = ""; // Limpiar el contenedor de vuelos
-                vuelos.forEach(vuelo => {
-                    const vueloElement = document.createElement('p');
-                    vueloElement.innerText = `Vuelo ID: ${vuelo.id}, Origen: ${vuelo.origen}, Destino: ${vuelo.destino}, Fecha: ${vuelo.fecha}`;
-                    vuelosDisponiblesDiv.appendChild(vueloElement);
-                });
-            }
-        }
-
-        // Llamar a la función para cargar los vuelos cuando la página se cargue
-        document.addEventListener('DOMContentLoaded', cargarVuelosDisponibles);
-
-        // Manejo del evento de envío del formulario de reserva
+        // Manejo del evento de envío del formulario
         document.getElementById('formReserva').addEventListener('submit', (event) => {
-            event.preventDefault();
+            event.preventDefault(); // Prevenir el envío normal del formulario
             const vueloId = document.getElementById('vueloId').value;
             const pasajero = document.getElementById('pasajero').value;
-
-            const resultado = agregarReserva(vueloId, pasajero);
-
-            const resultadoDiv = document.getElementById('resultado');
-            if (resultado.error) {
-                resultadoDiv.innerText = resultado.error;
-            } else {
-                resultadoDiv.innerText = resultado.success;
-                document.getElementById('formReserva').reset();
-            }
+            agregarReserva(vueloId, pasajero); // Agregar la reserva
+            document.getElementById('formReserva').reset(); // Reiniciar el formulario
         });
 
-        // Manejo del evento para mostrar reservas
+        // Manejo del evento del botón para mostrar reservas
         document.getElementById('mostrarReservas').addEventListener('click', () => {
-            const reservas = mostrarReservas();
+            const reservas = mostrarReservas(); // Obtener las reservas
             const resultadoDiv = document.getElementById('resultado');
 
             if (reservas.length === 0) {
-                resultadoDiv.innerText = "No hay reservas disponibles.";
+                resultadoDiv.innerText = "No hay reservas disponibles."; // Mensaje si no hay reservas
             } else {
-                resultadoDiv.innerHTML = "";
+                resultadoDiv.innerHTML = ""; // Limpiar el contenido anterior
                 reservas.forEach(reserva => {
                     const reservaElement = document.createElement('p');
                     reservaElement.innerText = `Reserva ID: ${reserva.id}, Vuelo ID: ${reserva.vueloId}, Pasajero: ${reserva.pasajero}`;
-                    resultadoDiv.appendChild(reservaElement);
+                    resultadoDiv.appendChild(reservaElement); // Mostrar cada reserva
                 });
             }
         });
     </script>
-
-    <footer>
-        <p>&copy; 2024 Sistema de Gestión de Vuelos. Todos los derechos reservados.</p>
-        <p><a href="#">Política de privacidad</a> | <a href="#">Términos y condiciones</a></p>
-        <p>Contáctanos: <a href="mailto:info@gestionvuelos.com">info@gestionvuelos.com</a></p>
-    </footer>
+        <footer>
+            <p>&copy; 2024 Sistema de Gestión de Vuelos. Todos los derechos reservados.</p>
+            <p><a href="#">Política de privacidad</a> | <a href="#">Términos y condiciones</a></p>
+            <p>Contáctanos: <a href="mailto:info@gestionvuelos.com">info@gestionvuelos.com</a></p>
+        </footer>
 </body>
 </html>

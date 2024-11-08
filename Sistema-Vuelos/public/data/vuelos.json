@@ -1,34 +1,30 @@
 [
-    {
-        "id": 1,
-        "origen": "Bogotá",
-        "destino": "Medellín",
-        "fecha": "2024-11-01",
-        "hora": "10:00",
-        "precio": 150000
-    },
-    {
-        "id": 2,
-        "origen": "Medellín",
-        "destino": "Cali",
-        "fecha": "2024-11-02",
-        "hora": "15:00",
-        "precio": 120000
-    },
-    {
-        "id": 3,
-        "origen": "Cali",
-        "destino": "Cartagena",
-        "fecha": "2024-11-03",
-        "hora": "12:00",
-        "precio": 180000
-    },
-    {
-        "id": 4,
-        "origen": "Cartagena",
-        "destino": "Bogotá",
-        "fecha": "2024-11-04",
-        "hora": "09:00",
-        "precio": 200000
-    }
+  {
+    "id": 1,
+    "origen": "Bogotá",
+    "destino": "Medellín",
+    "fecha": "2024-11-01",
+    "capacidad": "150"
+  },
+  {
+    "id": 2,
+    "origen": "Medellín",
+    "destino": "Cali",
+    "fecha": "2024-11-02",
+    "capacidad": "150"
+  },
+  {
+    "id": 3,
+    "origen": "Cali",
+    "destino": "Cartagena",
+    "fecha": "2024-11-03",
+    "capacidad": "150"
+  },
+  {
+    "id": 4,
+    "origen": "Cartagena",
+    "destino": "Bogotá",
+    "fecha": "2024-11-04",
+    "capacidad": "150"
+  }
 ]

@@ -1,11 +1,25 @@
 import { arbolVuelos } from '../models/vuelos.js';
 
-export function agregarVuelo(origen, destino, fecha, hora, disponibilidadEstandar, disponibilidadVIP) {
-    const vuelo = { origen, destino, fecha, hora, disponibilidadEstandar, disponibilidadVIP };
-    arbolVuelos.agregarVuelo(vuelo);
+// Función para cargar vuelos desde JSON
+async function cargarVuelos() {
+  try {
+    const response = await fetch("../public/data/vuelos.json");
+    const vuelos = await response.json();
+
+    vuelos.forEach((vuelo) => {
+      arbolVuelos.agregarVuelo(vuelo);
+    });
+  } catch (error) {
+    console.error("Error al cargar vuelos:", error);
+  }
 }
 
-export function mostrarVuelos() {
-    return arbolVuelos.obtenerVuelos();
+// Función para obtener vuelos disponibles
+export function obtenerVuelosDisponibles() {
+  return arbolVuelos.obtenerVuelos();
 }
+
+// Inicializa la carga de vuelos
+cargarVuelos();
+
 
