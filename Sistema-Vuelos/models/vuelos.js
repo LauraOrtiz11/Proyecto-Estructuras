@@ -1,63 +1,53 @@
-class Vuelo {
-    constructor(VueloNumber, airline, destination, departureTime) {
-        this.VueloNumber = VueloNumber;
-        this.airline = airline;
-        this.destination = destination;
-        this.departureTime = departureTime;
-        this.left = null;
-        this.right = null;
+class NodoVuelo {
+    constructor(vuelo) {
+        this.vuelo = vuelo;
+        this.izquierda = null;
+        this.derecha = null;
     }
 }
 
-class VueloArbol {
+class ArbolVuelos {
     constructor() {
-        this.root = null;
+        this.raiz = null;
     }
 
-    // Insertar vuelo en el árbol
-    insert(Vuelo) {
-        const newVuelo = new Vuelo(Vuelo.VueloNumber, Vuelo.airline, Vuelo.destination, Vuelo.departureTime);
-        if (this.root === null) {
-            this.root = newVuelo;
+    agregarVuelo(vuelo) {
+        if (this.raiz === null) {
+            this.raiz = new NodoVuelo(vuelo);
         } else {
-            this._insertNode(this.root, newVuelo);
+            this._agregarRecursivo(this.raiz, vuelo);
         }
     }
 
-    _insertNode(node, newVuelo) {
-        if (newVuelo.destination < node.destination) {
-            if (node.left === null) {
-                node.left = newVuelo;
+    _agregarRecursivo(nodo, vuelo) {
+        if (vuelo.fecha < nodo.vuelo.fecha) {
+            if (nodo.izquierda === null) {
+                nodo.izquierda = new NodoVuelo(vuelo);
             } else {
-                this._insertNode(node.left, newVuelo);
+                this._agregarRecursivo(nodo.izquierda, vuelo);
             }
         } else {
-            if (node.right === null) {
-                node.right = newVuelo;
+            if (nodo.derecha === null) {
+                nodo.derecha = new NodoVuelo(vuelo);
             } else {
-                this._insertNode(node.right, newVuelo);
+                this._agregarRecursivo(nodo.derecha, vuelo);
             }
         }
     }
 
-    // Buscar vuelo por destino
-    search(destination) {
-        return this._searchNode(this.root, destination);
+    obtenerVuelos() {
+        return this._inorden(this.raiz);
     }
 
-    _searchNode(node, destination) {
-        if (node === null) return null;
-        if (destination < node.destination) return this._searchNode(node.left, destination);
-        if (destination > node.destination) return this._searchNode(node.right, destination);
-        return node;
-    }
-
-    // Mostrar vuelos (in-order traversal)
-    displayVuelos(node = this.root) {
-        if (node !== null) {
-            this.displayVuelos(node.left);
-            console.log(`Vuelo: ${node.VueloNumber}, Airline: ${node.airline}, Destination: ${node.destination}, Time: ${node.departureTime}`);
-            this.displayVuelos(node.right);
+    _inorden(nodo) {
+        const vuelos = [];
+        if (nodo) {
+            vuelos.push(...this._inorden(nodo.izquierda));
+            vuelos.push(nodo.vuelo);
+            vuelos.push(...this._inorden(nodo.derecha));
         }
+        return vuelos;
     }
 }
+
+export const arbolVuelos = new ArbolVuelos();

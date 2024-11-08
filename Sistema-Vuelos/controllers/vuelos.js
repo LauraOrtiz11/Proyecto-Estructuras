@@ -1,15 +1,11 @@
-const vuelos = new vuelos();
+import { arbolVuelos } from '../models/vuelos.js';
 
-const vueloscontrolador = {
-    addFlight: (flightNumber, airline, destination, departureTime) => {
-        vuelos.insert({ flightNumber, airline, destination, departureTime });
-    },
-    
-    searchFlight: (destination) => {
-        return vuelos.search(destination);
-    },
+export function agregarVuelo(origen, destino, fecha, hora, disponibilidadEstandar, disponibilidadVIP) {
+    const vuelo = { origen, destino, fecha, hora, disponibilidadEstandar, disponibilidadVIP };
+    arbolVuelos.agregarVuelo(vuelo);
+}
 
-    displayFlights: () => {
-        vuelos.displayFlights();
-    }
-};
+export function mostrarVuelos() {
+    return arbolVuelos.obtenerVuelos();
+}
+
