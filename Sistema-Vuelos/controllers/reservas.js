@@ -22,6 +22,24 @@ export function agregarReserva(vueloId, pasajero) {
   alert("Reserva agregada exitosamente.");
 }
 
+export function realizarCheckIn(reservaId) {
+  const reservas = listaReservas.obtenerReservas();
+  const reserva = reservas.find((r) => r.id == reservaId);
+
+  if (!reserva) {
+    alert("Reserva no encontrada.");
+    return;
+  }
+
+  if (reserva.checkedIn) {
+    alert("El check-in ya fue realizado para esta reserva.");
+    return;
+  }
+
+  reserva.checkedIn = true;
+  alert("Check-in realizado exitosamente.");
+}
+
 export function mostrarReservas() {
   return listaReservas.obtenerReservas();
 }
