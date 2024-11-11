@@ -1,11 +1,14 @@
+
 export class Reserva {
     constructor(id, vueloId, pasajero) {
         this.id = id;
         this.vueloId = vueloId;
         this.pasajero = pasajero;
+        this.checkedIn = false; // Nuevo campo para estado de check-in
         this.siguiente = null; 
     }
 }
+
 export class ListaReservas {
     constructor() {
         this.cabeza = null;
