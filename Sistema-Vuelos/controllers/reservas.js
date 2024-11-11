@@ -15,7 +15,7 @@ export function agregarReserva(vueloId, pasajero) {
     return;
   }
 
-  vuelo.capacidad--; // Reducir capacidad del vuelo
+  vuelo.capacidad--; 
   const reserva = new Reserva(Date.now(), vueloId, pasajero);
   listaReservas.agregarReserva(reserva);
 

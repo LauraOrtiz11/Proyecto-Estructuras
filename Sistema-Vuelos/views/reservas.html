@@ -1,97 +1,166 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../public/css/style.css" />
-  <script type="module" src="../controllers/reservas.js"></script>
-  <script type="module" src="../controllers/vuelos.js"></script>
-  <title>Gestionar Reservas</title>
-</head>
-<body>
-  <nav>
-    <ul>
-      <li><a href="index.html">Inicio</a></li>
-    </ul>
-  </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../public/css/style.css" />
+    <script type="module" src="../controllers/reservas.js"></script>
+    <script type="module" src="../controllers/vuelos.js"></script>
+    <title>Gestionar Reservas</title>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li>
+          <a href="index.html"
+            ><img
+              src="../public/icons/home.png"
+              alt="Inicio"
+              class="icon"
+            />Inicio</a
+          >
+        </li>
+      </ul>
+    </nav>
 
-  <h1>Gestionar Reservas</h1>
+    <!-- Sección de Lista de Vuelos -->
+    <section id="listaVuelos">
+      <h1>Lista de Vuelos</h1>
+      <p>
+        Consulta la lista de vuelos disponibles y sus detalles. Haz clic en el
+        botón para ver la información y ocúltala cuando ya no la necesites.
+      </p>
+      <button id="verVuelosDisponibles">Ver Vuelos Disponibles</button>
+      <div id="vuelosDisponibles" class="oculto"></div>
+    </section>
 
-  <!-- Formulario para agregar una reserva -->
-  <form id="formReserva">
-    <label for="vueloId">ID de Vuelo:</label>
-    <input type="text" id="vueloId" required />
-    <label for="pasajero">Nombre del Pasajero:</label>
-    <input type="text" id="pasajero" required />
-    <button type="submit">Agregar Reserva</button>
-  </form>
+    <!-- Sección de Reservas -->
+    <section id="reservas">
+      <h1>Gestionar Reservas</h1>
+      <p>
+        Agrega nuevas reservas ingresando el ID de vuelo y el nombre del
+        pasajero. Puedes también ver todas las reservas registradas.
+      </p>
 
-  <button id="mostrarReservas">Mostrar Reservas</button>
-  <button id="verVuelosDisponibles" onclick="mostrarVuelos()">Ver Vuelos Disponibles</button>
-  <div id="vuelosDisponibles" class="oculto">
-    <!-- Aquí se mostrará la tabla de vuelos -->
-  </div>
+      <form id="formReserva">
+        <label for="vueloId">ID de Vuelo:</label>
+        <input type="text" id="vueloId" required />
+        <label for="pasajero">Nombre del Pasajero:</label>
+        <input type="text" id="pasajero" required />
+        <div class="button-group">
+          <button type="submit">Agregar Reserva</button>
+          <button type="button" id="mostrarReservas">Mostrar Reservas</button>
+        </div>
+      </form>
+      <div id="resultado" class="oculto"></div>
+    </section>
 
-  <div id="resultado"></div>
+    <!-- Sección de Check-in -->
+    <section id="checkin">
+      <h1>Realizar Check-in</h1>
+      <p>
+        Para realizar el check-in, ingresa el ID de la reserva correspondiente.
+        Esto actualizará el estado de check-in de la reserva.
+      </p>
+      <form id="formCheckIn">
+        <label for="reservaId">ID de Reserva para Check-in:</label>
+        <input type="text" id="reservaId" required />
+        <button type="submit">Realizar Check-in</button>
+      </form>
+    </section>
 
-  <!-- Formulario para realizar check-in por ID de reserva -->
-  <h2>Realizar Check-in</h2>
-  <form id="formCheckIn">
-    <label for="reservaId">ID de Reserva para Check-in:</label>
-    <input type="text" id="reservaId" required />
-    <button type="submit">Realizar Check-in</button>
-  </form>
+    <script type="module">
+      import {
+        agregarReserva,
+        mostrarReservas,
+        realizarCheckIn,
+      } from "../controllers/reservas.js";
+      import { obtenerVuelosDisponibles } from "../controllers/vuelos.js";
 
-  <script type="module">
-    import { agregarReserva, mostrarReservas, realizarCheckIn } from "../controllers/reservas.js";
-    import { obtenerVuelosDisponibles } from "../controllers/vuelos.js";
+      document
+        .getElementById("formReserva")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          const vueloId = document.getElementById("vueloId").value;
+          const pasajero = document.getElementById("pasajero").value;
+          agregarReserva(vueloId, pasajero);
+          document.getElementById("formReserva").reset();
+        });
 
-    // Manejo del evento de envío del formulario de reserva
-    document.getElementById("formReserva").addEventListener("submit", (event) => {
-      event.preventDefault();
-      const vueloId = document.getElementById("vueloId").value;
-      const pasajero = document.getElementById("pasajero").value;
-      agregarReserva(vueloId, pasajero);
-      document.getElementById("formReserva").reset();
-    });
+      // Mostrar/Ocultar reservas
+      document
+        .getElementById("mostrarReservas")
+        .addEventListener("click", () => {
+          const reservas = mostrarReservas();
+          const resultadoDiv = document.getElementById("resultado");
+          resultadoDiv.classList.toggle("oculto");
 
-    // Manejo del botón para mostrar reservas
-    document.getElementById("mostrarReservas").addEventListener("click", () => {
-      const reservas = mostrarReservas();
-      const resultadoDiv = document.getElementById("resultado");
+          if (!resultadoDiv.classList.contains("oculto")) {
+            if (reservas.length) {
+              resultadoDiv.innerHTML = `<table>
+                <tr><th>ID</th><th>Vuelo ID</th><th>Pasajero</th><th>Check-in</th></tr>
+                ${reservas
+                  .map(
+                    (r) =>
+                      `<tr><td>${r.id}</td><td>${r.vueloId}</td><td>${
+                        r.pasajero
+                      }</td><td>${
+                        r.checkedIn ? "Realizado" : "Pendiente"
+                      }</td></tr>`
+                  )
+                  .join("")}
+              </table>`;
+            } else {
+              resultadoDiv.innerHTML = "No hay reservas disponibles.";
+            }
+          }
+        });
 
-      resultadoDiv.innerHTML = reservas.length
-        ? reservas.map(r => `<p>Reserva ID: ${r.id}, Vuelo ID: ${r.vueloId}, Pasajero: ${r.pasajero}, Check-in: ${r.checkedIn ? 'Realizado' : 'Pendiente'}</p>`).join("")
-        : "No hay reservas disponibles.";
-    });
+      // Mostrar/Ocultar lista de vuelos
+      document
+        .getElementById("verVuelosDisponibles")
+        .addEventListener("click", () => {
+          const vuelos = obtenerVuelosDisponibles();
+          const vuelosDiv = document.getElementById("vuelosDisponibles");
+          vuelosDiv.classList.toggle("oculto");
 
-    // Función para mostrar vuelos disponibles en tabla
-    window.mostrarVuelos = () => {
-      const vuelos = obtenerVuelosDisponibles();
-      const vuelosDiv = document.getElementById("vuelosDisponibles");
-      vuelosDiv.classList.toggle("oculto");
+          if (!vuelosDiv.classList.contains("oculto")) {
+            vuelosDiv.innerHTML = `<table>
+              <tr><th>ID</th><th>Destino</th><th>Fecha</th><th>Capacidad</th></tr>
+              ${vuelos
+                .map(
+                  (v) =>
+                    `<tr><td>${v.id}</td><td>${v.destino}</td><td>${v.fecha}</td><td>${v.capacidad}</td></tr>`
+                )
+                .join("")}
+            </table>`;
+          } else {
+            vuelosDiv.innerHTML = "";
+          }
+        });
 
-      if (!vuelosDiv.classList.contains("oculto")) {
-        vuelosDiv.innerHTML = `<table>
-          <tr><th>ID</th><th>Destino</th><th>Fecha</th><th>Capacidad</th></tr>
-          ${vuelos.map(v => `<tr><td>${v.id}</td><td>${v.destino}</td><td>${v.fecha}</td><td>${v.capacidad}</td></tr>`).join("")}
-        </table>`;
-      }
-    };
+      document
+        .getElementById("formCheckIn")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          const reservaId = document.getElementById("reservaId").value;
+          realizarCheckIn(reservaId);
+          document.getElementById("formCheckIn").reset();
+        });
+    </script>
 
-    // Manejo del evento de envío del formulario de check-in
-    document.getElementById("formCheckIn").addEventListener("submit", (event) => {
-      event.preventDefault();
-      const reservaId = document.getElementById("reservaId").value;
-      realizarCheckIn(reservaId);
-      document.getElementById("formCheckIn").reset();
-    });
-  </script>
-
-  <footer>
-    <p>&copy; 2024 Sistema de Gestión de Vuelos. Todos los derechos reservados.</p>
-    <p><a href="#">Política de privacidad</a> | <a href="#">Términos y condiciones</a></p>
-    <p>Contáctanos: <a href="mailto:info@gestionvuelos.com">info@gestionvuelos.com</a></p>
-  </footer>
-</body>
+    <footer>
+      <p>
+        &copy; 2024 Sistema de Gestión de Vuelos. Todos los derechos reservados.
+      </p>
+      <p>
+        <a href="#">Política de privacidad</a> |
+        <a href="#">Términos y condiciones</a>
+      </p>
+      <p>
+        Contáctanos:
+        <a href="mailto:info@gestionvuelos.com">info@gestionvuelos.com</a>
+      </p>
+    </footer>
+  </body>
 </html>

@@ -14,12 +14,11 @@ async function cargarVuelos() {
   }
 }
 
-// Función para obtener vuelos disponibles
 export function obtenerVuelosDisponibles() {
   return arbolVuelos.obtenerVuelos();
 }
 
-// Inicializa la carga de vuelos
+
 cargarVuelos();
 
 

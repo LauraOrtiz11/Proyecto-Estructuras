@@ -1,172 +1,263 @@
+/* ==================================================
+   Sección General
+================================================== */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 20px;
-}
-
-nav {
-    background-color: #007BFF; /* Color azul para la barra de navegación */
-    padding: 10px;
-    color: white;
-    text-align: center; /* Centrar el contenido de la barra de navegación */
-    position: fixed; /* Cambiado a fixed para que permanezca en la parte superior */
-    top: 0; /* Fijar en la parte superior */
-    left: 0; /* Alinear a la izquierda */
-    width: 100%; /* Ancho completo */
-    z-index: 1000; /* Asegurarse de que esté por encima de otros elementos */
-    font-size: 1.5em;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0; /* Eliminar margen para centrar correctamente */
-}
-
-nav ul li {
-    display: inline; /* Mantener los elementos en línea */
-    margin-right: 20px; /* Espacio entre los enlaces */
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #f0f0f0;
+  margin:10vh 10vh;
+  margin-bottom: 20vh;
+  text-align: center;
+  background-image: url('../img/airplane.png'); 
+  background-position: left center; 
+  background-repeat: no-repeat; 
+  background-size: 15%;  
+  overflow-x: hidden;
 }
 
 h1 {
-    margin-top: 5%;
-    color: #0056B3; /* Color azul claro para el título */
-    text-align: center;
+  margin-top: 5%;
+  color: #0A3D62; 
+  text-align: center;
 }
 
+
+h1 {
+  margin-top: 5%;
+  color: #0A3D62; 
+  text-align: center;
+}
+
+/* ==================================================
+ Sección Navegación
+================================================== */
+nav {
+  background-color: #0A3D62; 
+  padding: 0.2em;
+  text-align: center;
+  position: fixed; 
+  top: 0.1%; 
+  left: 5%;
+  right: 6%;
+  width: 90%;
+  z-index: 1000; 
+  font-size: 1.7em;
+  border-radius: 20px;
+  box-shadow: 0px 4px 8px rgba(58, 34, 196, 0.274);
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5vh; 
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.icon {
+  margin-bottom: -0.4%;
+  width: 3.5vh;
+  margin-right: 2%;
+}
+
+/* ==================================================
+ Sección Banner
+================================================== */
 .banner {
-    position: relative;
-    text-align: center; /* Centrar el texto */
-    overflow: hidden; /* Evitar que el contenido se desborde */
+  position: relative;
+  text-align: center;
+  overflow: hidden;
 }
 
 .banner img {
-    width: 100%; /* Ancho completo de la pantalla */
-    height: auto; /* Mantener proporción de aspecto */
-    display: block; /* Eliminar espacios en blanco debajo de la imagen */
-    position: relative; /* Posicionar en relación al contenedor */
-    top: 0; /* Alinear en la parte superior */
-    left: 0; /* Alinear a la izquierda */
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .banner h1 {
-    font-size: 3em; /* Tamaño del título */
-    position: absolute; /* Posicionar el texto sobre la imagen */
-    top: 50%; /* Centrar verticalmente */
-    left: 50%; /* Centrar horizontalmente */
-    transform: translate(-50%, -50%); /* Ajustar el centro */
-    color: rgb(182, 190, 240); /* Cambiar el color del texto */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Agregar sombra al texto para mejorar la legibilidad */
-    z-index: 2; /* Asegurarse de que el texto esté delante */
+  font-size: 3em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgb(182, 190, 240);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  z-index: 2;
 }
 
 .banner::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Color negro con 70% de opacidad */
-    z-index: 1; /* Asegúrate de que esté detrás del texto */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
 }
 
 
+/* ==================================================
+ Sección Lista de Vuelos
+================================================== */
+.vuelo-item {
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin: 5px 0;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.oculto {
+  display: none;
+}
+
+button {
+  background-color: #1E90FF;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5%;
+}
+
+button:hover {
+  background-color: #0A3D62;
+}
+
+/* ==================================================
+ Sección Tabla de Vuelos Disponibles
+================================================== */
+#vuelosDisponibles {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+
+table {
+  width: 80%;
+  max-width: 800px;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #0A3D62;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* ==================================================
+ Sección Reservas y Check-in
+================================================== */
+#resultado {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+#resultado.oculto {
+  display: none;
+}
+.reservas, .checkin {
+  text-align: center;
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+}
+
+.reservas h2, .checkin h2 {
+  color: #0A3D62;
+}
+
+.reservas button, .checkin button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.reservas button:hover, .checkin button:hover {
+  background-color: #45a049;
+}
+
+/* ==================================================
+ Sección de Formulario 
+================================================== */
+form {
+  margin-top: 20px;
+  text-align: center;
+}
+
+form input, form select, form button {
+  margin: 10px;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+form button {
+  background-color: #1E90FF;
+  color: white;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #0A3D62;
+}
+
+/* ==================================================
+ Sección Footer
+================================================== */
 footer {
-    background-color: #0056b3; /* Color azul más oscuro para el footer */
-    padding: 20px 0;
-    text-align: center;
-    position: fixed; /* Cambiado a fixed para que permanezca en la parte inferior */
-    bottom: 0; /* Fijar en la parte inferior */
-    left: 0; /* Alinear a la izquierda */
-    width: 100%; /* Ancho completo */
-    color: white;
+  background-color: #0A3D62;
+  padding: 20px 0;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: white;
 }
 
 footer p {
-    margin: 5px 0;
+  margin: 5px 0;
 }
 
 footer a {
-    color: #66B2FF; /* Color de enlace */
-    text-decoration: none;
+  color: #66B2FF;
+  text-decoration: none;
 }
 
 footer a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
-/* Mejora visual de la lista de vuelos */
-.vuelo-item {
-    padding: 10px;
-    border: 1px solid #ddd;
-    margin: 5px 0;
-    background-color: #f9f9f9;
-    border-radius: 4px;
-  }
-  
-  /* Oculta y muestra la lista de vuelos */
-  .oculto {
-    display: none;
-  }
-  
-  button {
-    background-color: #4CAF50; /* Verde */
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius:5%;
-
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
-
-  form, .oculto, #resultado {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  /* Estilos para la tabla */
-  #vuelosDisponibles {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  table {
-    width: 80%;
-    max-width: 800px;
-    border-collapse: collapse;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  table, th, td {
-    border: 1px solid #ddd;
-  }
-  
-  th, td {
-    padding: 12px;
-    text-align: center;
-  }
-  
-  th {
-    background-color: #4CAF50;
-    color: white;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
 

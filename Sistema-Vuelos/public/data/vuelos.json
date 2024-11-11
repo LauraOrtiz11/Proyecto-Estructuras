@@ -26,5 +26,117 @@
     "destino": "Bogotá",
     "fecha": "2024-11-04",
     "capacidad": "150"
+  },
+  {
+    "id": 5,
+    "origen": "Medellín",
+    "destino": "Cali",
+    "fecha": "2024-11-05",
+    "capacidad": "120"
+  },
+  {
+    "id": 6,
+    "origen": "Bogotá",
+    "destino": "Cartagena",
+    "fecha": "2024-11-06",
+    "capacidad": "200"
+  },
+  {
+    "id": 7,
+    "origen": "Cali",
+    "destino": "Barranquilla",
+    "fecha": "2024-11-07",
+    "capacidad": "180"
+  },
+  {
+    "id": 8,
+    "origen": "Cartagena",
+    "destino": "Medellín",
+    "fecha": "2024-11-08",
+    "capacidad": "160"
+  },
+  {
+    "id": 9,
+    "origen": "Bogotá",
+    "destino": "Pereira",
+    "fecha": "2024-11-09",
+    "capacidad": "140"
+  },
+  {
+    "id": 10,
+    "origen": "Bucaramanga",
+    "destino": "Bogotá",
+    "fecha": "2024-11-10",
+    "capacidad": "130"
+  },
+  {
+    "id": 11,
+    "origen": "Medellín",
+    "destino": "Bogotá",
+    "fecha": "2024-11-11",
+    "capacidad": "150"
+  },
+  {
+    "id": 12,
+    "origen": "Barranquilla",
+    "destino": "Cali",
+    "fecha": "2024-11-12",
+    "capacidad": "170"
+  },
+  {
+    "id": 13,
+    "origen": "Pereira",
+    "destino": "Cartagena",
+    "fecha": "2024-11-13",
+    "capacidad": "110"
+  },
+  {
+    "id": 14,
+    "origen": "Cartagena",
+    "destino": "Bogotá",
+    "fecha": "2024-11-14",
+    "capacidad": "200"
+  },
+  {
+    "id": 15,
+    "origen": "Bogotá",
+    "destino": "Medellín",
+    "fecha": "2024-11-15",
+    "capacidad": "150"
+  },
+  {
+    "id": 16,
+    "origen": "Medellín",
+    "destino": "Pereira",
+    "fecha": "2024-11-16",
+    "capacidad": "120"
+  },
+  {
+    "id": 17,
+    "origen": "Cali",
+    "destino": "Bogotá",
+    "fecha": "2024-11-17",
+    "capacidad": "180"
+  },
+  {
+    "id": 18,
+    "origen": "Bogotá",
+    "destino": "Barranquilla",
+    "fecha": "2024-11-18",
+    "capacidad": "200"
+  },
+  {
+    "id": 19,
+    "origen": "Bucaramanga",
+    "destino": "Medellín",
+    "fecha": "2024-11-19",
+    "capacidad": "100"
+  },
+  {
+    "id": 20,
+    "origen": "Pereira",
+    "destino": "Cali",
+    "fecha": "2024-11-20",
+    "capacidad": "160"
   }
 ]

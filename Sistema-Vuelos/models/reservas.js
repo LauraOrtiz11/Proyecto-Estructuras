@@ -4,7 +4,7 @@ export class Reserva {
         this.id = id;
         this.vueloId = vueloId;
         this.pasajero = pasajero;
-        this.checkedIn = false; // Nuevo campo para estado de check-in
+        this.checkedIn = false; 
         this.siguiente = null; 
     }
 }

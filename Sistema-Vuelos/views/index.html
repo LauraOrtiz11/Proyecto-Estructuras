@@ -7,24 +7,33 @@
     <title>Gestión de Vuelos</title>
 </head>
 <body>
+    <!-- Navegación -->
     <nav>
         <ul>
-            <li><a href="reservas.html">Gestionar Reservas</a></li>
+            <li><a href="reservas.html"> 
+                <img src="../public/icons/airplane.png" alt="Inicio" class="icon"/>
+                Gestionar Reservas</a>
+            </li>
         </ul>
     </nav>
+
+    <!-- Banner -->
     <div class="banner">
-        <img src="../public/img/fondo.jpg" alt="Imagen de gestión de vuelos" style="width:100%; height:50%;">
+        <img src="../public/img/fondo.jpg" alt="Imagen de gestión de vuelos">
         <h1>Bienvenido al Sistema de Gestión de Vuelos</h1>
     </div>
 
-    
-    <p>Esta es la página principal del sitio web donde podrá gestionar vuelos, reservas, y realizar check-in.</p>
+    <!-- Descripción -->
+    <section class="descripcion">
+        <p>Esta es la página principal del sitio web donde podrá ver los vuelos disponibles, reservar, y realizar check-in.</p>
+        <button onclick="window.location.href='reservas.html'">Empezar</button>
+    </section>
 
+    <!-- Footer -->
     <footer>
         <p>&copy; 2024 Sistema de Gestión de Vuelos. Todos los derechos reservados.</p>
         <p><a href="#">Política de privacidad</a> | <a href="#">Términos y condiciones</a></p>
         <p>Contáctanos: <a href="mailto:info@gestionvuelos.com">info@gestionvuelos.com</a></p>
     </footer>
-
 </body>
 </html>
