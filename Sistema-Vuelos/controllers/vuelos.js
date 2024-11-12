@@ -1,6 +1,4 @@
 import { arbolVuelos } from '../models/vuelos.js';
-
-// Función para cargar vuelos desde JSON
 async function cargarVuelos() {
   try {
     const response = await fetch("../public/data/vuelos.json");
@@ -14,10 +12,9 @@ async function cargarVuelos() {
   }
 }
 
-export function obtenerVuelosDisponibles() {
+export function obtenerVuelos() {
   return arbolVuelos.obtenerVuelos();
 }
-
 
 cargarVuelos();
 

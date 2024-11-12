@@ -11,13 +11,13 @@
     "origen": "Medellín",
     "destino": "Cali",
     "fecha": "2024-11-02",
-    "capacidad": "150"
+    "capacidad": "0"
   },
   {
     "id": 3,
     "origen": "Cali",
     "destino": "Cartagena",
-    "fecha": "2024-11-03",
+    "fecha": "2024-11-21",
     "capacidad": "150"
   },
   {

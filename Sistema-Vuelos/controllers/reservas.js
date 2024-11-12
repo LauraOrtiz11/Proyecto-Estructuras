@@ -1,6 +1,7 @@
 import { listaReservas, Reserva } from '../models/reservas.js';
 import { arbolVuelos } from "../models/vuelos.js";
 
+
 export function agregarReserva(vueloId, pasajero) {
   const vuelos = arbolVuelos.obtenerVuelos();
   const vuelo = vuelos.find((v) => v.id == vueloId);
@@ -44,6 +45,23 @@ export function mostrarReservas() {
   return listaReservas.obtenerReservas();
 }
 
-  
+
+export function eliminarReserva(reservaId) {
+  const reservas = listaReservas.obtenerReservas();
+  const reserva = reservas.find((r) => r.id === Number(reservaId)); 
+  if (reserva) {
+    const eliminado = listaReservas.eliminarReserva(reservaId); 
+    if (eliminado) {
+      alert("Reserva eliminada exitosamente.");
+      mostrarReservas();
+    } else {
+      alert("Error al eliminar la reserva.");
+    }
+  } else {
+    alert("Reserva no encontrada.");
+  }
+}
+
+
 
 

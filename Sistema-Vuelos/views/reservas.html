@@ -30,7 +30,7 @@
         Consulta la lista de vuelos disponibles y sus detalles. Haz clic en el
         botón para ver la información y ocúltala cuando ya no la necesites.
       </p>
-      <button id="verVuelosDisponibles">Ver Vuelos Disponibles</button>
+      <button id="verVuelos">Ver Vuelos Disponibles</button>
       <div id="vuelosDisponibles" class="oculto"></div>
     </section>
 
@@ -74,8 +74,9 @@
         agregarReserva,
         mostrarReservas,
         realizarCheckIn,
+        eliminarReserva,
       } from "../controllers/reservas.js";
-      import { obtenerVuelosDisponibles } from "../controllers/vuelos.js";
+      import { obtenerVuelos } from "../controllers/vuelos.js";
 
       document
         .getElementById("formReserva")
@@ -91,53 +92,70 @@
       document
         .getElementById("mostrarReservas")
         .addEventListener("click", () => {
-          const reservas = mostrarReservas();
+          const reservas = mostrarReservas(); 
           const resultadoDiv = document.getElementById("resultado");
           resultadoDiv.classList.toggle("oculto");
 
           if (!resultadoDiv.classList.contains("oculto")) {
             if (reservas.length) {
               resultadoDiv.innerHTML = `<table>
-                <tr><th>ID</th><th>Vuelo ID</th><th>Pasajero</th><th>Check-in</th></tr>
-                ${reservas
-                  .map(
-                    (r) =>
-                      `<tr><td>${r.id}</td><td>${r.vueloId}</td><td>${
-                        r.pasajero
-                      }</td><td>${
-                        r.checkedIn ? "Realizado" : "Pendiente"
-                      }</td></tr>`
-                  )
-                  .join("")}
-              </table>`;
+          <tr>
+            <th>ID</th>
+            <th>Vuelo ID</th>
+            <th>Pasajero</th>
+            <th>Check-in</th>
+            <th>Acción</th>
+          </tr>
+          ${reservas
+            .map(
+              (r) =>
+                `<tr>
+                  <td>${r.id}</td>
+                  <td>${r.vueloId}</td>
+                  <td>${r.pasajero}</td>
+                  <td>${r.checkedIn ? "Realizado" : "Pendiente"}</td>
+                  <td><button class="eliminar-btn" data-id="${
+                    r.id
+                  }">Eliminar</button></td>
+                </tr>`
+            )
+            .join("")}
+        </table>`;
             } else {
               resultadoDiv.innerHTML = "No hay reservas disponibles.";
             }
           }
         });
 
-      // Mostrar/Ocultar lista de vuelos
       document
-        .getElementById("verVuelosDisponibles")
-        .addEventListener("click", () => {
-          const vuelos = obtenerVuelosDisponibles();
-          const vuelosDiv = document.getElementById("vuelosDisponibles");
-          vuelosDiv.classList.toggle("oculto");
-
-          if (!vuelosDiv.classList.contains("oculto")) {
-            vuelosDiv.innerHTML = `<table>
-              <tr><th>ID</th><th>Destino</th><th>Fecha</th><th>Capacidad</th></tr>
-              ${vuelos
-                .map(
-                  (v) =>
-                    `<tr><td>${v.id}</td><td>${v.destino}</td><td>${v.fecha}</td><td>${v.capacidad}</td></tr>`
-                )
-                .join("")}
-            </table>`;
-          } else {
-            vuelosDiv.innerHTML = "";
+        .getElementById("resultado")
+        .addEventListener("click", function (event) {
+          if (event.target && event.target.matches("button.eliminar-btn")) {
+            const reservaId = event.target.getAttribute("data-id");
+            eliminarReserva(reservaId); 
           }
         });
+
+      // Mostrar/Ocultar lista de vuelos
+      document.getElementById("verVuelos").addEventListener("click", () => {
+        const vuelos = obtenerVuelos();
+        const vuelosDiv = document.getElementById("vuelosDisponibles");
+        vuelosDiv.classList.toggle("oculto");
+
+        if (!vuelosDiv.classList.contains("oculto")) {
+          vuelosDiv.innerHTML = `<table>
+                <tr><th>ID</th><th>Destino</th><th>Fecha</th><th>Capacidad</th></tr>
+                ${vuelos
+                  .map(
+                    (v) =>
+                      `<tr><td>${v.id}</td><td>${v.destino}</td><td>${v.fecha}</td><td>${v.capacidad}</td></tr>`
+                  )
+                  .join("")}
+              </table>`;
+        } else {
+          vuelosDiv.innerHTML = "";
+        }
+      });
 
       document
         .getElementById("formCheckIn")
